@@ -11,16 +11,17 @@ def linear_block(in_f, out_f):
         nn.Dropout(0.2)
     )
 
-class Linear_NN(torch.nn.Module):
+class Features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
-        super(Linear_NN, self).__init__()
+        super(Features12_NN, self).__init__()
         self.hidden1 = linear_block(in_features, 24)
         self.hidden2 = linear_block(24, 48)
         self.hidden3 = linear_block(48, 96)
-        self.hidden4 = linear_block(96, 48)
-        self.hidden5 = linear_block(48, 24)
-        self.hidden6 = linear_block(24, 12)
-        self.out = nn.Linear(12, 1)
+        self.hidden4 = linear_block(96, 96)
+        self.hidden5 = linear_block(96, 48)
+        self.hidden6 = linear_block(48, 24)
+        self.hidden7 = linear_block(24, 6)
+        self.out = nn.Linear(6, 1)
         
 
     def forward(self, x):
@@ -30,11 +31,12 @@ class Linear_NN(torch.nn.Module):
         x = self.hidden4(x)
         x = self.hidden5(x)
         x = self.hidden6(x)
+        x = self.hidden7(x)
         output = self.out(x)
         
         return output
 
 
 if __name__ == '__main__':
-    model = Linear_NN(12).cuda()
+    model = Features12_NN(12).cuda()
     summary(model, input_size=(1, 12))
