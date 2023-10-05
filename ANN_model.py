@@ -16,12 +16,9 @@ class Features12_NN(torch.nn.Module):
         super(Features12_NN, self).__init__()
         self.hidden1 = linear_block(in_features, 24)
         self.hidden2 = linear_block(24, 48)
-        self.hidden3 = linear_block(48, 96)
-        self.hidden4 = linear_block(96, 96)
-        self.hidden5 = linear_block(96, 48)
-        self.hidden6 = linear_block(48, 24)
-        self.hidden7 = linear_block(24, 6)
-        self.out = nn.Linear(6, 1)
+        self.hidden3 = linear_block(48, 48)
+        self.hidden4 = linear_block(48, 48)
+        self.out = nn.Linear(48, 1)
         
 
     def forward(self, x):
@@ -29,9 +26,6 @@ class Features12_NN(torch.nn.Module):
         x = self.hidden2(x)
         x = self.hidden3(x)
         x = self.hidden4(x)
-        x = self.hidden5(x)
-        x = self.hidden6(x)
-        x = self.hidden7(x)
         output = self.out(x)
         
         return output

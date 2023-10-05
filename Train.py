@@ -18,6 +18,7 @@ def train_model(model,
                       min_lr=1e-6,
                       verbose=True,
                       patience=20,
+                      threshold=0.01
                       ):
     
     if torch.cuda.is_available():
@@ -26,7 +27,7 @@ def train_model(model,
 
     model.to(device)
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay) # Adam with weight decay
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=factor, patience=patience, verbose=verbose, min_lr=min_lr) # 依照cosine週期衰減
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=factor, patience=patience, verbose=verbose, min_lr=min_lr, threshold=threshold) # 依照cosine週期衰減
     criterion = nn.MSELoss()
 
     start = time.time()
