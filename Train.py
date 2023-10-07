@@ -10,22 +10,18 @@ from torchmetrics.functional import mean_absolute_percentage_error, mean_squared
 
 
 def train_model(model,
-                      train_loader, test_loader,
-                      num_epochs=300,
-                      lr=1e-2,
-                      weight_decay=1e-3,
-                      factor=0.3,
-                      min_lr=1e-6,
-                      verbose=True,
-                      patience=20,
-                      threshold=0.01
-                      ):
+                train_loader, test_loader,
+                num_epochs=300,
+                lr=1e-2,
+                weight_decay=1e-3,
+                factor=0.3,
+                min_lr=1e-6,
+                verbose=True,
+                patience=20,
+                threshold=0.01
+                ):
     
-    if torch.cuda.is_available():
-        device = torch.device('cuda')
-        print('cuda is available')
-
-    model.to(device)
+    model.cuda()
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay) # Adam with weight decay
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=factor, patience=patience, verbose=verbose, min_lr=min_lr, threshold=threshold) # 依照cosine週期衰減
     criterion = nn.MSELoss()
@@ -43,13 +39,13 @@ def train_model(model,
         ##### Training loop #####
         model.train() # prep model for training
         for inputs, targets in train_loader:
-            inputs = inputs.to(device)
-            targets = targets.to(device)
+            inputs = inputs.cuda()
+            targets = torch.log(targets.cuda())
 
             # forward
             outputs = model(inputs)
-            loss = criterion(outputs, targets)
-            mape = mean_absolute_percentage_error(outputs.view(-1, 1), targets.view(-1, 1))
+            loss = criterion(outputs, targets) # use log
+            mape = mean_absolute_percentage_error(torch.exp(outputs.view(-1, 1)), torch.exp(targets.view(-1, 1))) # not use log
 
             # backward and optimize
             optimizer.zero_grad()
@@ -62,12 +58,12 @@ def train_model(model,
         ##### Validation loop #####
         model.eval() # prep model for evaluation
         for inputs, targets in test_loader:
-            inputs = inputs.to(device)
-            targets = targets.to(device)
+            inputs = inputs.cuda()
+            targets = torch.log(targets.cuda())
 
             outputs = model(inputs)
-            test_loss = criterion(outputs, targets)
-            test_mape = mean_absolute_percentage_error(outputs.view(-1, 1), targets.view(-1, 1))
+            test_loss = criterion(outputs, targets) # use log
+            test_mape = mean_absolute_percentage_error(torch.exp(outputs.view(-1, 1)), torch.exp(targets.view(-1, 1))) # not use log
             valid_losses.append(test_loss.item())
             valid_mapes.append(test_mape.item())
 
@@ -95,10 +91,11 @@ def train_model(model,
         path = "./State_dicts"
         if not os.path.isdir(path):
             os.makedirs(path)
-        torch.save(model.state_dict(), path+'/epoch'+str(epoch+1))
+        torch.save(model.state_dict(), path+'/epoch'+str(epoch+1)+'.pt')
 
 
     end = time.time()
     print(f'Training is end. Total trainig time: {(end-start)/60:.1f} minutes')
+    print(f'Min test_loss is at epoch{np.argmin(avg_valid_losses)+1}')
 
     return  model, avg_train_losses, avg_valid_losses
