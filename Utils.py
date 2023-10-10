@@ -27,7 +27,7 @@ def true_pred_plot(y_pred, y_true, title='', llim=0, rlim=14):
     plt.show()
 
 
-def model_pred(model, data_loader):
+def model_pred(model, data_loader, y_scaler):
     outputs_all = []
     targets_all = []
     model.eval() # prep model for evaluation
@@ -35,8 +35,8 @@ def model_pred(model, data_loader):
         inputs = inputs.cuda()
         targets = targets.cuda()
         outputs = model(inputs)
-        outputs_all.append(outputs.cpu().detach().numpy())
-        targets_all.append(targets.cpu().detach().numpy())
+        outputs_all.append(y_scaler.inverse_transform(outputs.cpu().detach().numpy()))
+        targets_all.append(y_scaler.inverse_transform(targets.cpu().detach().numpy()))
     return np.array(outputs_all).ravel(), np.array(targets_all).ravel()
 
 
