@@ -58,6 +58,126 @@ class Features12_NN2(torch.nn.Module):
         return output
 
 
+class Taipei_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Taipei_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+
+
+class NewTaipei_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(NewTaipei_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+
+
+class Tainan_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Tainan_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+    
+
+class Kaoshung_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Kaoshung_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+
+
+class Taichung_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Taichung_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+    
+
+class Taoyuan_features12_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Taoyuan_features12_NN, self).__init__()
+        self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        self.hidden2 = linear_block(24, 48, drop=0.05)
+        self.hidden3 = linear_block(48, 48, drop=0.05)
+        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.out = nn.Linear(48, 1)
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
+
+
 class Features13_NN(torch.nn.Module):
     def __init__(self, in_features=13):
         super(Features13_NN, self).__init__()
