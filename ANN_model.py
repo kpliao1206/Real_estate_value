@@ -101,12 +101,21 @@ class NewTaipei_features12_NN(torch.nn.Module):
 class Tainan_features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Tainan_features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.05)
-        self.hidden2 = linear_block(24, 48, drop=0.05)
-        self.hidden3 = linear_block(48, 48, drop=0.05)
-        self.hidden4 = linear_block(48, 48, drop=0.05)
-        self.out = nn.Linear(48, 1)
-        
+        ##### version1 #####
+        # self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        # self.hidden2 = linear_block(24, 48, drop=0.05)
+        # self.hidden3 = linear_block(48, 48, drop=0.05)
+        # self.hidden4 = linear_block(48, 48, drop=0.05)
+        # self.out = nn.Linear(48, 1)
+        ##### version1 #####
+
+        ##### version2 #####
+        self.hidden1 = linear_block(in_features, 24, drop=0.25)
+        self.hidden2 = linear_block(24, 48, drop=0.25)
+        self.hidden3 = linear_block(48, 24, drop=0.25)
+        self.hidden4 = linear_block(24, 24, drop=0.25)
+        self.out = nn.Linear(24, 1)
+        ##### version2 #####
 
     def forward(self, x):
         x = self.hidden1(x)
@@ -121,10 +130,10 @@ class Tainan_features12_NN(torch.nn.Module):
 class Kaoshung_features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Kaoshung_features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.05)
-        self.hidden2 = linear_block(24, 48, drop=0.05)
-        self.hidden3 = linear_block(48, 48, drop=0.05)
-        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.hidden1 = linear_block(in_features, 24, drop=0.2)
+        self.hidden2 = linear_block(24, 48, drop=0.2)
+        self.hidden3 = linear_block(48, 48, drop=0.2)
+        self.hidden4 = linear_block(48, 48, drop=0.2)
         self.out = nn.Linear(48, 1)
         
 
@@ -161,11 +170,21 @@ class Taichung_features12_NN(torch.nn.Module):
 class Taoyuan_features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Taoyuan_features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.05)
-        self.hidden2 = linear_block(24, 48, drop=0.05)
-        self.hidden3 = linear_block(48, 48, drop=0.05)
-        self.hidden4 = linear_block(48, 48, drop=0.05)
+        ##### version1 #####
+        self.hidden1 = linear_block(in_features, 24, drop=0.15)
+        self.hidden2 = linear_block(24, 48, drop=0.15)
+        self.hidden3 = linear_block(48, 48, drop=0.15)
+        self.hidden4 = linear_block(48, 48, drop=0.15)
         self.out = nn.Linear(48, 1)
+        ##### version1 #####
+
+        ##### version2 #####
+        # self.hidden1 = linear_block(in_features, 24, drop=0.2)
+        # self.hidden2 = linear_block(24, 48, drop=0.2)
+        # self.hidden3 = linear_block(48, 24, drop=0.2)
+        # self.hidden4 = linear_block(24, 24, drop=0.2)
+        # self.out = nn.Linear(24, 1)
+        ##### version2 #####
         
 
     def forward(self, x):
@@ -181,11 +200,21 @@ class Taoyuan_features12_NN(torch.nn.Module):
 class Others_features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Others_features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.05)
-        self.hidden2 = linear_block(24, 48, drop=0.05)
-        self.hidden3 = linear_block(48, 48, drop=0.05)
-        self.hidden4 = linear_block(48, 48, drop=0.05)
-        self.out = nn.Linear(48, 1)
+        ##### version1 #####
+        # self.hidden1 = linear_block(in_features, 24, drop=0.05)
+        # self.hidden2 = linear_block(24, 48, drop=0.05)
+        # self.hidden3 = linear_block(48, 48, drop=0.05)
+        # self.hidden4 = linear_block(48, 48, drop=0.05)
+        # self.out = nn.Linear(48, 1)
+        ##### version1 #####
+
+        ##### version2 #####
+        self.hidden1 = linear_block(in_features, 24, drop=0.25)
+        self.hidden2 = linear_block(24, 48, drop=0.25)
+        self.hidden3 = linear_block(48, 24, drop=0.25)
+        self.hidden4 = linear_block(24, 24, drop=0.25)
+        self.out = nn.Linear(24, 1)
+        ##### version2 #####
         
 
     def forward(self, x):
