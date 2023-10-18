@@ -15,11 +15,11 @@ class Features12_dataset(Dataset):
         self.scaler_y = FunctionTransformer(np.log1p, np.expm1) # log(x+1), 使資料更接近常態分佈 inverse_func: np.expm1
 
         if train:
-            # scaler_X = StandardScaler()
-            scaler_X = Pipeline([
-                ('MinMax', MinMaxScaler()),
-                ('log1p', FunctionTransformer(np.log1p, np.expm1))     
-            ])
+            scaler_X = StandardScaler()
+            # scaler_X = Pipeline([
+            #     ('MinMax', MinMaxScaler()),
+            #     ('log1p', FunctionTransformer(np.log1p, np.expm1))     
+            # ])
             scaler_X.fit(X_train)
             X_scaled_train = scaler_X.transform(X_train)
             self.input = X_scaled_train
@@ -28,11 +28,11 @@ class Features12_dataset(Dataset):
             # self.scaler_y.fit(y_train)
             self.target = self.scaler_y.transform(y_train)
         else:
-            # scaler_X = StandardScaler()
-            scaler_X = Pipeline([
-                ('MinMax', MinMaxScaler()),
-                ('log1p', FunctionTransformer(np.log1p, np.expm1))     
-            ])
+            scaler_X = StandardScaler()
+            # scaler_X = Pipeline([
+            #     ('MinMax', MinMaxScaler()),
+            #     ('log1p', FunctionTransformer(np.log1p, np.expm1))     
+            # ])
             scaler_X.fit(X_test)
             X_scaled_test = scaler_X.transform(X_test)
             self.input = X_scaled_test

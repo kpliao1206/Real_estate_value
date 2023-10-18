@@ -19,10 +19,10 @@ def linear_block(in_f, out_f, drop=0.):
 class Features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.05)
-        self.hidden2 = linear_block(24, 48, drop=0.05)
-        self.hidden3 = linear_block(48, 48, drop=0.05)
-        self.hidden4 = linear_block(48, 48, drop=0.05)
+        self.hidden1 = linear_block(in_features, 24, drop=0.)
+        self.hidden2 = linear_block(24, 48, drop=0.)
+        self.hidden3 = linear_block(48, 48, drop=0.)
+        self.hidden4 = linear_block(48, 48, drop=0.)
         self.out = nn.Linear(48, 1)
         
 
