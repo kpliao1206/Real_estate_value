@@ -19,10 +19,10 @@ def linear_block(in_f, out_f, drop=0.):
 class Features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
         super(Features12_NN, self).__init__()
-        self.hidden1 = linear_block(in_features, 24, drop=0.)
-        self.hidden2 = linear_block(24, 48, drop=0.)
-        self.hidden3 = linear_block(48, 48, drop=0.)
-        self.hidden4 = linear_block(48, 48, drop=0.)
+        self.hidden1 = linear_block(in_features, 24, drop=0.025)
+        self.hidden2 = linear_block(24, 48, drop=0.025)
+        self.hidden3 = linear_block(48, 48, drop=0.025)
+        self.hidden4 = linear_block(48, 48, drop=0.025)
         self.out = nn.Linear(48, 1)
         
 
@@ -57,6 +57,36 @@ class Features12_NN2(torch.nn.Module):
         
         return output
 
+
+class Features7_NN(torch.nn.Module):
+    def __init__(self, in_features=12):
+        super(Features7_NN, self).__init__()
+
+        ##### version1 #####
+        # self.hidden1 = linear_block(in_features, 24, drop=0.025)
+        # self.hidden2 = linear_block(24, 48, drop=0.025)
+        # self.hidden3 = linear_block(48, 48, drop=0.025)
+        # self.hidden4 = linear_block(48, 48, drop=0.025)
+        # self.out = nn.Linear(48, 1)
+        ##### version1 #####
+
+        ##### version2 #####
+        self.hidden1 = linear_block(in_features, 24, drop=0.01)
+        self.hidden2 = linear_block(24, 48, drop=0.01)
+        self.hidden3 = linear_block(48, 24, drop=0.01)
+        self.hidden4 = linear_block(24, 24, drop=0.01)
+        self.out = nn.Linear(24, 1)
+        ##### version2 #####
+        
+
+    def forward(self, x):
+        x = self.hidden1(x)
+        x = self.hidden2(x)
+        x = self.hidden3(x)
+        x = self.hidden4(x)
+        output = self.out(x)
+        
+        return output
 
 class Taipei_features12_NN(torch.nn.Module):
     def __init__(self, in_features=12):
